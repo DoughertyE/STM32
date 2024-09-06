@@ -6,4 +6,4 @@ First, install:
   gcc-arm-none-eabi
   gdb-arm-none-eabi
   libnewlib-arm-none-eabi
-  libstdc++-arm-none-eabi.
+  libstdc++-arm-none-eabi
