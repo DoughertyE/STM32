@@ -7,3 +7,5 @@ First, install:
   gdb-arm-none-eabi
   libnewlib-arm-none-eabi
   libstdc++-arm-none-eabi
+  stlink-tools
+	https://github.com/stlink-org/stlink

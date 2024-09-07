@@ -14,7 +14,7 @@ arm-none-eabi-gcc core.o -mcpu=cortex-m4 -mthumb -Wall --specs=nosys.specs -nost
 
 
 
-
+//So, I noticed above that my vtable was not at 0x08000000 like it should be (it should be at the very beginning of program memory). The below linker file was made with the help of ChatGPT. By defnining sections and there locations (ram vs flash), I was able to fix the problem.
 
 /* Highest address of the user mode stack */
 _estack = 0x20020000;    /* End of RAM */
@@ -62,3 +62,33 @@ SECTIONS
 }
 
 
+
+
+// New output showing correct placement of the vtable
+0800001c T _end
+20020000 T _estack
+08000010 t main_loop
+08000008 T reset_handler
+08000000 T vtable
+
+
+
+// I am using WSL2.0 which does not allow USB passthrough. ST-LINK, the software I am using to send code to the STM32, cannot see the device. I must use usbipd-win to get things to work.
+	winget install --interactive --exact dorssel.usbipd-win
+
+
+// Still not working. LD1 is bliking RED at about 1HZ. 
+// Fixed. USB cable was either power only or defective.
+
+
+//Working!
+0x08000012 in reset_handler ()
+(gdb) info registers
+r0             0x16a88ef           23759087
+r1             0x0                 0
+r2             0x0                 0
+r3             0x0                 0
+r4             0x0                 0
+r5             0x0                 0
+r6             0x0                 0
+r7             0xdeadbeef          -559038737
